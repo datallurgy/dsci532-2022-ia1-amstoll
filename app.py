@@ -18,9 +18,9 @@ app.layout = html.Div([
         dcc.RadioItems(
             id='radio_species',
             options=[
-                {'label': 'None', 'value': 'blue'},
+                {'label': 'None', 'value': 'None'},
                 {'label': 'Species', 'value': 'species'}],
-                value='Species')])
+                value='None')])
 
 # Set up callbacks/backend
 @app.callback(
@@ -28,11 +28,17 @@ app.layout = html.Div([
     Input('xcol', 'value'),
     Input('radio_species', 'value'))
 def plot_altair(xcol, radio_species):
-    chart = alt.Chart(iris).mark_circle().encode(
-        x = xcol,
-        y = 'sepalWidth',
-        color = 'species',
-        tooltip='species').interactive()
+    if radio_species == 'None':
+        chart = alt.Chart(iris).mark_circle().encode(
+            x = xcol,
+            y = 'sepalWidth',
+            tooltip='species').interactive()
+    else:
+        chart = alt.Chart(iris).mark_circle().encode(
+            x = xcol,
+            y = 'sepalWidth',
+            color = 'species',
+            tooltip='species').interactive()
     return chart.to_html()
 
 if __name__ == '__main__':
