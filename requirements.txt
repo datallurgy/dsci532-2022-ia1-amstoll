@@ -1,6 +1,6 @@
 pandas
 gunicorn
 altair
-dash==1.18.1
+dash
 dash_bootstrap_components
 vega_datasets
